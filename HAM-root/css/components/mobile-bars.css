@@ -1,0 +1,10 @@
+.mobile-top-bar, .mobile-bottom-bar { background: rgba(22, 22, 22, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; }
+.mobile-top-bar { border-bottom: 1px solid rgba(255, 255, 255, 0.07); display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; }
+.mobile-top-bar .page-title { font-weight: 600; }
+.menu-button, .search-button { background: none; border: none; color: #fff; font-size: 1.5rem; }
+.mobile-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.07); display: flex; justify-content: space-around; align-items: center; }
+.mobile-bottom-bar .nav-button { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-decoration: none; color: #A3A3A3; flex-grow: 1; padding: 0.5rem 0; }
+.mobile-bottom-bar .nav-button span { font-size: 1.5rem; }
+.mobile-bottom-bar .nav-button label { font-size: 0.7rem; }
+.mobile-bottom-bar .nav-button.active { color: #007aff; }
+.fab-placeholder { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; background: #007aff; border-radius: 50%; margin-top: -1.875rem; border: 0.25rem solid #101010; font-size: 2rem; color: white; flex-grow: 0; }

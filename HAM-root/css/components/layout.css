@@ -1,0 +1,86 @@
+/* /css/layout.css */
+
+/* 1. Basic Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #101010;
+    color: white;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+/* 2. The Master Grid Layout */
+.app-layout {
+    display: grid;
+    height: 100dvh; /* Full screen height */
+
+    /* --- DESKTOP DEFINITION --- */
+    /* A single row, two columns. */
+    grid-template-rows: 1fr;
+    grid-template-columns: 16rem 1fr; /* 256px left drawer, rest is main content */
+    grid-template-areas: "left-drawer main";
+}
+
+/* 3. Assigning Components to Grid Areas */
+.left-drawer      { grid-area: left-drawer; }
+.main-content     { grid-area: main; }
+.mobile-top-bar   { grid-area: mobile-top; }
+.mobile-bottom-bar{ grid-area: mobile-bottom; }
+
+/* 4. Styling the Components (Simple Borders for Visibility) */
+.left-drawer {
+    background-color: #1a1a1a;
+    border-right: 1px solid #333;
+}
+
+.main-content {
+    background-color: #101010;
+    overflow-y: auto; /* Main content is the only thing that scrolls */
+    padding: 2rem;
+}
+
+/* 5. Hiding Mobile Elements on Desktop */
+.mobile-top-bar, .mobile-bottom-bar {
+    display: none;
+}
+
+
+/* --- ADD THIS AT THE VERY END OF layout.css --- */
+
+/* 6. Mobile-Specific Layout */
+@media (max-width: 768px) {
+
+    /* Redefine the entire grid skeleton */
+    .app-layout {
+        grid-template-rows: 3.5rem 1fr 4rem; /* Top bar, main content, bottom bar */
+        grid-template-columns: 1fr; /* A single column */
+        grid-template-areas: 
+            "mobile-top"
+            "main"
+            "mobile-bottom";
+    }
+
+    /* Hide the desktop drawer */
+    .left-drawer {
+        display: none;
+    }
+
+    /* Show the mobile bars */
+    .mobile-top-bar, .mobile-bottom-bar {
+        display: block; /* Use 'block' or 'flex' depending on content */
+        background-color: #1a1a1a;
+    }
+
+    .mobile-top-bar {
+        border-bottom: 1px solid #333;
+    }
+
+    .mobile-bottom-bar {
+        border-top: 1px solid #333;
+    }
+}

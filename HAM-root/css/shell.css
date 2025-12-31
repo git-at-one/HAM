@@ -1,0 +1,203 @@
+/* /css/shell.css (The Corrected and Final Version) */
+
+/* ============================================= */
+/*      1. GLOBAL STYLES & DESIGN THEME          */
+/* ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: #101010; font-family: 'Manrope', sans-serif; overflow: hidden; color: #A3A3A3; }
+
+.layout-shell, .content-card {
+    background: rgba(16, 16, 16, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 0.75rem;
+}
+
+/* ============================================= */
+/*      2. UNIVERSAL FADE-IN ANIMATION           */
+/* ============================================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.anim-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+
+/* ============================================= */
+/*      3. MASTER GRID LAYOUT DEFINITION         */
+/* ============================================= */
+.app-layout { display: grid; height: 100dvh; padding: 1rem; gap: 1rem; }
+.app-layout { grid-template-rows: 3.5rem 1fr 3.5rem; grid-template-columns: 16rem 1fr 16rem; grid-template-areas: "top-bar top-bar top-bar" "left-drawer main-content right-drawer" "bottom-bar bottom-bar bottom-bar"; }
+.top-bar { grid-area: top-bar; }
+.left-drawer { grid-area: left-drawer; }
+.main-content-container { grid-area: main-content; }
+.right-drawer { grid-area: right-drawer; }
+.bottom-bar { grid-area: bottom-bar; }
+
+/* ============================================= */
+/*      4. MAIN CONTENT AREA (CORRECTED)         */
+/* ============================================= */
+
+/* --- THIS IS THE DEFINITIVE FIX --- */
+.main-content-container {
+    /* REMOVED: overflow: hidden; */
+    overflow-y: auto; /* This is now the ONLY overflow property here */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    min-height: 0; /* Good practice to keep this */
+}
+
+/* --- Top Bar Layout (REFINED) --- */
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+/* This pushes the last item (Profile) to the far right */
+.top-bar .placeholder-label:last-child {
+    margin-left: auto;
+}
+
+.content-card {
+    padding: 1.5rem;
+    flex-shrink: 0; /* Correctly prevents cards from shrinking */
+}
+
+/* --- Header Card --- */
+.page-header-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* --- Active Devices Card --- */
+.active-devices-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.active-devices-card .scroll-wrapper {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto; /* This is correct for horizontal scrolling */
+}
+.active-devices-card .placeholder-card.small {
+    min-height: 5rem;
+    min-width: 10rem;
+    flex-shrink: 0;
+    display: grid;
+    place-content: center;
+}
+
+/* --- Main Grid Card (SIMPLIFIED) --- */
+.main-grid-card {
+    /* REMOVED: flex-grow, min-height, etc. are not needed */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+/* REMOVED: The .main-grid-card .scroll-wrapper rule is no longer needed */
+.main-grid-card .placeholder-card {
+    min-height: 10rem;
+    display: grid;
+    place-content: center;
+}
+
+/* ============================================= */
+/*      5. PLACEHOLDER STYLES & LABELS           */
+/* ============================================= */
+.placeholder-label { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); text-align: center;}
+.placeholder-label.small-text { font-size: 0.7rem; }
+.placeholder-title { font-size: 0.75rem; font-weight: 600; color: rgba(255, 255, 255, 0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+.placeholder-title.full-width { grid-column: 1 / -1; }
+.left-drawer { display: flex; flex-direction: column; padding: 1.5rem; gap: 1rem; }
+.left-drawer .placeholder-card { display: grid; place-content: center; }
+.left-drawer .placeholder-card.header { height: 2.5rem; }
+.left-drawer .placeholder-card.nav-group { height: 8rem; }
+.left-drawer .placeholder-card.user-profile { height: 3.5rem; margin-top: auto; }
+.right-drawer { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.top-bar { display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; }
+.bottom-bar { display: flex; align-items: center; justify-content: space-around; padding: 0 1rem; }
+.placeholder-card.header-logo { height: 3.5rem; width: 3.5rem; border-radius: 50%; flex-shrink: 0; display: grid; place-content: center; }
+.header-text .placeholder-label { text-align: left; }
+
+/* ============================================= */
+/*      6. DRAWER INTERACTIVITY & MOBILE         */
+/* ============================================= */
+.icon-button { display: none; background: none; border: none; cursor: pointer; color: #A3A3A3; font-size: 1.5rem; }
+.left-drawer { transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+.left-drawer, .right-drawer {
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 100; /* ADDED: Ensure drawers are always on a high layer */
+}
+
+.drawer-overlay {
+    position: fixed;
+    inset: 0; /* Cover the entire screen */
+    background-color: rgba(0, 0, 0, 0.3); /* A semi-transparent black */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    
+    /* --- Animation --- */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    
+    /* --- State --- */
+    pointer-events: none; /* By default, it's not clickable */
+    z-index: 99;
+}
+
+/* When a drawer is open, the overlay becomes visible and clickable */
+.app-layout.drawer-open .drawer-overlay {
+    opacity: 1;
+    pointer-events: auto; /* Now it can be clicked */
+}
+
+
+/* In /css/shell.css, REPLACE the .top-bar-actions styles with this: */
+
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* --- NEW STYLES FOR THE BELL ICON using the MASK system --- */
+
+/* First, define the icon's image source */
+.icon-bell {
+    -webkit-mask-image: url(../assets/icons/bell.svg);
+    mask-image: url(../assets/icons/bell.svg);
+}
+
+/* Then, style the icon itself */
+.top-bar-actions .svg-icon.icon-bell {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+    background-color: #A3A3A3; /* Default subtle color */
+    transition: background-color 0.2s ease;
+}
+
+/* Change the color on hover */
+.top-bar-actions .icon-button:hover .svg-icon.icon-bell {
+    background-color: #fff;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .main-content-container, .app-layout { gap: 0.5rem; }
+    .app-layout { grid-template-rows: 3.5rem 1fr 4rem; grid-template-columns: 1fr; grid-template-areas: "top-bar" "main-content" "bottom-bar"; }
+    .top-bar { position: relative; z-index: 90; }
+    .icon-button { display: block; }
+    .left-drawer { position: fixed; top: 1rem; left: 1rem; bottom: 1rem; width: 16rem; z-index: 100; transform: translateX(-110%); }
+    .right-drawer { display: none; }
+    .app-layout.left-drawer-open .left-drawer { transform: translateX(0); }
+    .active-devices-card .scroll-wrapper { overscroll-behavior: contain; }
+}
+

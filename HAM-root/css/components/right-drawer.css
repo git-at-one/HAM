@@ -1,0 +1,21 @@
+.right-drawer {
+    background: rgba(22, 22, 22, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow-y: auto;
+    position: relative;
+    padding: clamp(1rem, 0.5rem + 2vw, 1.5rem);
+}
+.right-drawer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-left: 1px solid transparent;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.73), rgba(255, 255, 255, 0.07)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+}
+.right-drawer .drawer-header { padding-bottom: 1rem; }
+.activity-list { list-style: none; font-size: 0.9rem; color: #A3A3A3; }
+.activity-list li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }

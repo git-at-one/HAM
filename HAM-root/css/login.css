@@ -1,0 +1,275 @@
+/* /css/login.css */
+body{overflow: hidden;}
+
+/* 0. Particle Canvas Background (Global) */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* 1. The Full-Screen Centering Container */
+#app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  position: relative;
+  z-index: 1;
+  padding: 1rem; /* 16px fallback */
+  padding: clamp(1rem, 4vw, 2rem); /* Fluid padding */
+  box-sizing: border-box;
+}
+
+/* 2. Login Card Styles */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(16, 16, 16, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 14px;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.75);
+  position: relative;
+  animation: slideUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  padding: 2rem; /* 32px fallback */
+  padding: clamp(1.5rem, 6vw, 2.5rem); /* 24px -> 40px */
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.73), rgba(255, 255, 255, 0.07));
+  padding: 1px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+/* 3. Login Form Layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 1.5rem; /* 24px fallback */
+  gap: clamp(1.25rem, 5vw, 1.75rem); /* 20px -> 28px */
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.form-header h1 {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+  color: #F5F5F5;
+  font-size: 1.75rem; /* 28px fallback */
+  font-size: clamp(1.5rem, 5vw, 1.75rem); /* 24px -> 28px */
+}
+.form-header p {
+  margin: 0;
+  color: #A3A3A3;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+hr {
+  margin: 0.875rem 0;
+  height: 1px;
+  border: none;
+  background: linear-gradient(to right, #313131 0%, #8F8F8F 50%, #313131 100%);
+}
+
+/* 4. Input Groups & Password Styles */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.input-group label {
+  color: #A3A3A3;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.input-group input {
+  height: 3rem;
+  padding: 0 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: #F5F5F5;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-group input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+.input-group input::placeholder {
+  color: #A3A3A3;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.password-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#strength-indicator {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.75rem;
+  color: white;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+#strength-indicator.visible { opacity: 1; }
+#strength-indicator.weak { background-color: #ff3b30; }
+#strength-indicator.good { background-color: #ff9500; }
+#strength-indicator.strong { background-color: #34c759; }
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 3rem;
+  box-sizing: border-box;
+}
+.password-eye-icon {
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+  user-select: none;
+  color: #A3A3A3;
+  display: flex;
+  align-items: center;
+}
+.password-eye-icon .hidden { display: none; }
+
+.password-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: -0.75rem 0;
+}
+.password-recommendations {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  color: #A3A3A3;
+  font-weight: 300;
+}
+.password-recommendations li.met {
+  color: #747474C7;
+  text-decoration: line-through;
+  transition: all 0.3s ease;
+}
+
+
+.error-message {
+  color: #FF3636;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  margin-top: 0.25rem; /* 4px space above the message */
+  min-height: 1rem;
+  margin-right: 0;
+}
+
+/* 5. Links & Actions */
+.forgot-password {
+  font-size: 0.8125rem;
+  color: #A3A3A3;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-left: 1rem;
+  transition: color 0.2s ease;
+}
+.forgot-password:hover {
+  color: #F5F5F5;
+  text-decoration: underline;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.submit-button {
+  height: 3rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #E0E0E0A3 100%);
+  color: #101010;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #A6A6A6;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+  
+}
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+}
+.submit-button:disabled {
+  background: transparent;
+  color: #A3A3A3;
+  border: 1px solid #A3A3A3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.signup-link {
+  font-size: 0.875rem;
+  color: #A3A3A3;
+}
+.signup-link a {
+  color: #F5F5F5;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.signup-link a:hover {
+  color: #F5F5F5;
+  text-decoration: underline;
+}
+
+/* 6. Responsive Adjustments */
+@media (max-width: 480px) {
+  .password-meta-row {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+  .forgot-password {
+    margin-left: 0;
+  }
+}
+
+
+/* Add this to login.css */
+hr.gradient-divider {
+    margin: 0;
+    height: 1px;
+    border: none;
+    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+}

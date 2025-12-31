@@ -1,0 +1,8 @@
+.status-chips-container { display: flex; gap: 1rem; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 1rem; }
+.status-chip { display: flex; align-items: center; gap: 0.75rem; background: rgba(30, 30, 30, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.75rem 1rem; border-radius: 0.75rem; flex-shrink: 0; }
+.status-chip .icon { font-size: 1.25rem; }
+.status-chip .info { display: flex; flex-direction: column; }
+.status-chip .name { font-weight: 600; font-size: 0.9rem; }
+.status-chip .status { font-size: 0.8rem; color: #A3A3A3; }
+.status-chip.active { border-color: #2ECC71; background: radial-gradient(circle, rgba(46, 204, 113, 0.1), transparent 70%), rgba(30, 30, 30, 0.7); }
+.status-chip.active .icon { color: #2ECC71; }
