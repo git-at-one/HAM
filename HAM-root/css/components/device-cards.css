@@ -1,0 +1,126 @@
+/* /css/components/device-cards.css */
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+}
+
+.device-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 1.25rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.device-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.device-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.device-card-icon .svg-icon {
+    width: 20px;
+    height: 20px;
+    background-color: var(--text-secondary);
+}
+
+.device-card-info { line-height: 1.3; }
+.device-name { font-weight: 600; font-size: 0.9rem; color: var(--text-primary); }
+.device-status { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
+
+/* "ACTIVE" STATE STYLING */
+/* /css/components/device-cards.css */
+
+/* ============================================= */
+/*      3. "ACTIVE" STATE STYLING (Glass Effect) */
+/* ============================================= */
+.device-card.active {
+    /* A subtle, diagonal white-to-transparent gradient for the glass effect */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
+    
+    /* A stronger, more visible white border */
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* When the card is active, we want the icon and text to be bright white */
+.device-card.active .device-card-icon {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.device-card.active .device-card-icon .svg-icon {
+    background-color: var(--text-primary); /* Bright white icon */
+}
+
+.device-card.active .device-name {
+    color: var(--text-primary); /* Bright white text */
+}
+
+.device-card.active .device-status {
+    color: var(--text-secondary); /* A slightly dimmer white for the status */
+}
+
+
+/* "ADD NEW" CARD VARIANT */
+.add-new-card {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.75rem;
+}
+.add-new-card:hover {
+    background-color: var(--card-background);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+.add-new-card .device-card-icon { background-color: transparent; }
+
+
+/* ============================================= */
+/*      5. HORIZONTAL SCROLLING VARIANT          */
+/* ============================================= */
+
+.horizontal-scroll {
+    /* Override the grid layout with flexbox */
+    display: flex;
+    gap: 0.75rem;
+    
+    /* Enable horizontal scrolling */
+    overflow-x: auto;
+    
+    /* Add some padding to the right so the last card doesn't touch the edge */
+    padding-bottom: 0.5rem; /* Space for the scrollbar */
+    padding-right: 1rem; /* Space at the end of the scroll */
+    
+    /* Hide the scrollbar for a cleaner look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
+/* We need to tell the cards inside a horizontal scroll not to shrink */
+.horizontal-scroll .device-card {
+    flex-shrink: 0;
+    /* We need to set a specific width, as flexbox won't use the grid's minmax() */
+    width: 150px;
+}

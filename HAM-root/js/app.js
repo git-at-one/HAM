@@ -1,10 +1,12 @@
-// /js/app.js (The Correct, Fully-Featured Version)
+// /js/app.js (The Full and Correct Version)
 
 // --- MODULE IMPORTS ---
 // Imports the function to dynamically build the left-side navigation drawer.
 import { buildLeftDrawer } from './modules/left-drawer-builder.js';
 // Imports the function to fetch internet time and update the greeting and time display.
 import { setDynamicGreetingAndTime } from './modules/greet.js';
+// Imports the function to build the "Active" and "All" device grids.
+import { buildDeviceGrids } from './modules/device-grid-builder.js';
 
 
 /**
@@ -39,23 +41,23 @@ function initDrawerInteractivity() {
 
 /**
  * The main initialization function for the entire dashboard.
- * This function is called once the DOM is fully loaded.
+ * This function is now 'async' because it needs to 'await' the device grid creation.
  */
-function dashboardInit() {
+async function dashboardInit() {
     console.log("Dashboard Initializing...");
 
     // --- INITIALIZE ALL FEATURES ---
 
-    // 1. Build the dynamic content of the left drawer.
+    // 1. These functions are synchronous or run in the background.
+    // They can be called right away.
     buildLeftDrawer();
-
-    // 2. Set up the event listeners for opening and closing the drawer.
     initDrawerInteractivity();
-
-    // 3. Fetch internet time and set the personalized greeting and time display.
-    //    We provide the IDs of the HTML elements to be updated.
     setDynamicGreetingAndTime('user-greeting', 'current-time-display', 'Alex');
 
+    // 2. This function is asynchronous. It fetches data and builds the main UI.
+    // We 'await' its completion to ensure the main content is ready.
+    // It now takes two arguments for the two separate grid containers.
+    await buildDeviceGrids('active-devices-grid', 'all-devices-grid');
 
     console.log("Dashboard initialization complete.");
 }

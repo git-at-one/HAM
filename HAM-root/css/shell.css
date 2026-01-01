@@ -39,7 +39,7 @@ body {
 }
 .top-bar { grid-area: top-bar; }
 .main-content-container { grid-area: main-content; }
-.bottom-bar { grid-area: bottom-bar; }
+/* .bottom-bar { grid-area: bottom-bar; } */
 
 .main-content-container {
     display: flex;
@@ -73,7 +73,7 @@ body {
     flex-shrink: 0;
 }
 
-.top-bar {
+/* top-bar {
     padding: 0.75rem;
     display: flex;
     align-items: center;
@@ -83,7 +83,28 @@ body {
 .top-bar-actions {
     display: flex;
     gap: 1rem;
+} */
+
+
+/* In /css/shell.css */
+.top-bar {
+    grid-area: top-bar;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.75rem;
+    height: 3.5rem;
+    background: rgba(16, 16, 18, 0.65); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* --- THIS IS THE FIX --- */
+    position: sticky; /* Tell the browser this element sticks to the top */
+    top: 0;           /* Stick to the very top of the viewport */
+    z-index: 10;      /* Place it on a layer above the main content */
 }
+
+
 
 .icon-button {
     background: none;
@@ -103,6 +124,14 @@ body {
 .header-greeting { font-size: 2rem; font-weight: 700; line-height: 1.2; }
 .placeholder-title { font-size: 0.8125rem; font-weight: 600; color: var(--text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; }
 
+.section-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1rem; /* Space between title and grid */
+}
 
 /* ============================================= */
 /*      4. BOTTOM BAR (FALLBACK STYLE)           */
@@ -156,6 +185,34 @@ body {
     width: 20px;
     height: 20px;
 }
+
+
+.bottom-bar {
+    grid-area: bottom-bar;
+    padding: 0.75rem;
+    padding-top: 0;
+
+    /* --- THIS IS THE FIX --- */
+    position: sticky; /* Tell the browser this element sticks to the bottom */
+    bottom: 0;        /* Stick to the very bottom of the viewport */
+    z-index: 90;      /* Place it on the same layer as the top bar */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+/* The inner element gets the glass styling */
+.bottom-bar-inner {
+    background: var(--card-background);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--card-border);
+    border-radius: 1.25rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 
 /* .add-button:active {
     transform: scale(1.1);

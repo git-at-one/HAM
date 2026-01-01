@@ -1,0 +1,49 @@
+/* /css/components/skeleton-loader.css */
+
+/* ============================================= */
+/*      1. SKELETON CARD STYLE                   */
+/* ============================================= */
+.skeleton-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 1.25rem; /* Match the real device card */
+    aspect-ratio: 1 / 1; /* Match the real device card */
+    
+    /* --- Shimmer Effect Setup --- */
+    position: relative;
+    overflow: hidden; /* This is crucial to contain the shimmer */
+    background-color: #2c2c2e; /* A slightly lighter base for the shimmer to show up on */
+}
+
+/* ============================================= */
+/*      2. THE SHIMMER ANIMATION                 */
+/* ============================================= */
+.skeleton-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start off-screen to the left */
+    width: 150%;
+    height: 100%;
+    
+    /* The shimmer itself: a semi-transparent white gradient */
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 100%
+    );
+    
+    /* The animation that moves the shimmer across the card */
+    animation: shimmer 1.5s infinite;
+}
+
+/* The Keyframes for the animation */
+@keyframes shimmer {
+    from {
+        left: -150%;
+    }
+    to {
+        left: 150%;
+    }
+}
