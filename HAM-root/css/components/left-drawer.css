@@ -1,4 +1,4 @@
-/* /css/components/left-drawer.css (The Final, Consolidated Version) */
+/* /css/components/left-drawer.css (The New, Updated Version) */
 
 /* ============================================= */
 /*      1. MAIN DRAWER STRUCTURE                 */
@@ -6,120 +6,121 @@
 .left-drawer {
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
-    gap: 1.25rem;
+    gap: 1rem; /* Gap between major sections */
 }
 
 .gradient-divider {
     margin: 0;
     height: 1px;
     border: none;
-    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
     flex-shrink: 0;
 }
 
 /* ============================================= */
-/*      2. DRAWER CARDS (UNIFIED STYLE)          */
+/*      2. DRAWER CARDS (PROFILE & HOME)         */
 /* ============================================= */
 .drawer-card {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 0.75rem;
-    border-radius: 0.6rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    color: #fff;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-a.drawer-card:hover {
+    border-radius: 0.75rem;
     background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background-color 0.2s ease;
+}
+.drawer-card:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* --- User Profile Card --- */
 .drawer-user-profile .avatar {
-    height: 3rem;
-    width: 3rem;
-    background-color: #007AFF;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    background-color: #007AFF; /* Placeholder blue */
     display: grid;
-    place-content: center;
+    place-items: center;
     flex-shrink: 0;
 }
-.drawer-user-profile .avatar svg {
-    width: 1.5rem;
-    height: 1.5rem;
+.drawer-user-profile .avatar .svg-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #FFFFFF;
 }
 .drawer-user-profile .user-info {
     line-height: 1.4;
     overflow: hidden;
+    flex-grow: 1;
 }
 .drawer-user-profile .user-name {
     font-weight: 600;
     font-size: 1rem;
 }
-.drawer-user-profile .user-email {
-    font-size: 0.8rem;
-    color: #A3A3A3;
-}
+.drawer-user-profile .user-email,
 .drawer-user-profile .user-last-login {
-    font-size: 0.7rem;
-    color: #6E6E73;
-    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
 }
 
 /* --- Home Switcher Card --- */
 .home-switcher .home-info {
     line-height: 1.3;
     overflow: hidden;
+    flex-grow: 1;
 }
 .home-switcher .home-label {
-    font-size: 0.7rem;
-    color: #A3A3A3;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
     text-transform: uppercase;
+    font-weight: 600;
 }
 .home-switcher .home-name {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.9rem;
 }
 
 /* ============================================= */
-/*      3. MANAGEMENT LISTS (MEMBERS, ETC.)      */
+/*      3. MANAGEMENT LISTS (MEMBERS & APP)      */
 /* ============================================= */
 .management-group {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
 }
-.management-group .list-title {
+
+.list-title {
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
     text-transform: uppercase;
-    padding: 0 0.75rem 0.5rem 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0 0.75rem;
+    margin-bottom: 0.5rem;
+    
+    /* --- THIS IS THE FIX --- */
+    /* Adds a consistent 1rem space above every list title. */
+    margin-top: 1rem;
 }
-.management-group .list-item {
+
+.list-item {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.6rem 0.75rem;
+    padding: 0.75rem;
     border-radius: 0.5rem;
     text-decoration: none;
-    color: #A3A3A3;
+    color: var(--text-secondary);
     transition: background-color 0.2s ease, color 0.2s ease;
 }
-.management-group .list-item:hover {
+.list-item:hover {
     background-color: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    color: var(--text-primary);
 }
-.management-group .list-item .item-text {
+.list-item .item-text {
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -128,17 +129,18 @@ a.drawer-card:hover {
 /*      4. APP ACTIONS (BOTTOM SECTION)          */
 /* ============================================= */
 .app-actions {
-    margin-top: auto;
+    margin-top: auto; /* Pushes this section to the bottom */
+    padding-top: 1rem; /* Adds space above the divider inside it */
 }
 
 /* ============================================= */
-/*      5. SVG ICON SYSTEM (USING CSS MASKS)     */
+/*      5. SVG ICON SYSTEM                       */
 /* ============================================= */
 .svg-icon {
     display: inline-block;
-    width: 1.25rem;
-    height: 1.25rem;
-    background-color: #D1D1D1;
+    width: 22px;
+    height: 22px;
+    background-color: currentColor; /* Inherits color from parent (.list-item) */
     -webkit-mask-size: contain;
     mask-size: contain;
     -webkit-mask-repeat: no-repeat;
@@ -148,11 +150,9 @@ a.drawer-card:hover {
     transition: background-color 0.2s ease;
     flex-shrink: 0;
 }
-.list-item:hover .svg-icon {
-    background-color: #fff;
-}
 
-.icon-home { -webkit-mask-image: url(../../assets/icons/home.svg); mask-image: url(../../assets/icons/home.svg); width: 1.5rem; height: 1.5rem; }
+/* Specific icon definitions */
+.icon-home { -webkit-mask-image: url(../../assets/icons/home.svg); mask-image: url(../../assets/icons/home.svg); }
 .icon-users { -webkit-mask-image: url(../../assets/icons/users.svg); mask-image: url(../../assets/icons/users.svg); }
 .icon-plus-circle { -webkit-mask-image: url(../../assets/icons/plus-circle.svg); mask-image: url(../../assets/icons/plus-circle.svg); }
 .icon-settings { -webkit-mask-image: url(../../assets/icons/settings.svg); mask-image: url(../../assets/icons/settings.svg); }
@@ -161,53 +161,8 @@ a.drawer-card:hover {
 .icon-arrow-right { -webkit-mask-image: url(../../assets/icons/arrow-right.svg); mask-image: url(../../assets/icons/arrow-right.svg); }
 .icon-chevron-down { -webkit-mask-image: url(../../assets/icons/chevron-down.svg); mask-image: url(../../assets/icons/chevron-down.svg); }
 
-.drawer-user-profile .profile-arrow {
+/* Arrow icons that are positioned at the end of a card */
+.profile-arrow,
+.icon-chevron-down {
     margin-left: auto;
-    background-color: #6E6E73;
-    width: 1.5rem;
-    height: 1.5rem;
-}
-.drawer-user-profile:hover .profile-arrow {
-    background-color: #A3A3A3;
-}
-.home-switcher .icon-chevron-down {
-    margin-left: auto;
-    background-color: #A3A3A3;
-    width: 1rem;
-    height: 1rem;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-.home-switcher:hover .icon-chevron-down {
-    transform: translateY(2px);
-    background-color: #fff;
-}
-
-
-/* ============================================= */
-/*      9. DRAWER OVERLAY (THE MISSING PIECE)    */
-/* ============================================= */
-.drawer-overlay {
-    position: fixed;
-    inset: 0; /* Covers the entire screen */
-    
-    /* The visual effect: a semi-transparent black with a blur */
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    
-    z-index: 99; /* Sits just BELOW the drawer (z-index: 100) */
-    
-    /* --- INTERACTIVITY --- */
-    /* Hidden by default */
-    opacity: 0;
-    pointer-events: none; /* Not clickable when hidden */
-    
-    /* Smoothly fade in and out */
-    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* When the drawer is open, the overlay becomes visible and clickable */
-.app-layout.left-drawer-open .drawer-overlay {
-    opacity: 1;
-    pointer-events: auto; /* Becomes clickable */
 }

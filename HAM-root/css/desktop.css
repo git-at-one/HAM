@@ -1,0 +1,107 @@
+/* /css/desktop.css - (Corrected for Full-Width Top Bar) */
+
+@media (min-width: 768px) {
+
+    /* ============================================= */
+    /*      1. HIDE MOBILE-ONLY ELEMENTS             */
+    /* ============================================= */
+    .bottom-bar,
+    #menu-toggle-btn {
+        display: none;
+    }
+
+    /* ============================================= */
+    /*      2. REDEFINE THE MASTER GRID LAYOUT       */
+    /* ============================================= */
+    .app-layout {
+        /* --- THIS IS THE KEY CHANGE --- */
+        /* Remove padding from the main layout container */
+        padding: 0; 
+        gap: 1rem;
+        
+        /* Define a 3-column layout */
+        grid-template-columns: 16rem 1fr 16rem;
+        
+        /* Define a 2-row layout: top bar, then content */
+        grid-template-rows: 3.5rem 1fr;
+        
+        /* The top bar now spans all 3 columns in the first row */
+        grid-template-areas:
+            "top-bar      top-bar      top-bar"
+            "left-drawer  main-content right-drawer";
+    }
+
+    /* ============================================= */
+    /*      3. STYLE THE FULL-WIDTH TOP BAR          */
+    /* ============================================= */
+    .top-bar {
+        grid-area: top-bar;
+        width: 100%;
+        
+        /* The top bar no longer needs its own background or border,
+           as it's just a container in this layout. */
+        background: none;
+        backdrop-filter: none;
+        border: none;
+        border-radius: 0; /* No rounded corners for a full-width bar */
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        /* Add padding here to keep content from touching the edges */
+        padding: 0 1.5rem;
+    }
+
+    /* Make the desktop nav items visible */
+    .top-bar-nav-items {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .top-bar-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: color 0.2s ease;
+    }
+
+    .top-bar-nav-item:hover,
+    .top-bar-nav-item.active {
+        color: var(--text-primary);
+    }
+
+    /* ============================================= */
+    /*      4. STYLE THE DRAWERS AND MAIN CONTENT    */
+    /* ============================================= */
+    .left-drawer, 
+    .right-drawer,
+    .main-content-container {
+        /* Apply the card styling to these elements instead of the top bar */
+        background: var(--card-background);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--card-border);
+        border-radius: 1.25rem;
+    }
+
+    .left-drawer, .right-drawer {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .left-drawer { grid-area: left-drawer; }
+    .right-drawer { grid-area: right-drawer; }
+    
+    .main-content-container { 
+        grid-area: main-content; 
+        padding: 1.5rem; /* Give the main content area some internal padding */
+    }
+}

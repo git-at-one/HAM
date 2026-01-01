@@ -7,20 +7,20 @@ export function buildLeftDrawer() {
         return;
     }
 
-    // Data for the dynamic lists
     const membersData = [
-        { iconClass: 'users', text: 'Sarah' },
-        { iconClass: 'users', text: 'David' },
-        { iconClass: 'plus-circle', text: 'Invite Member' },
+        { iconClass: 'icon-users', text: 'Sarah' },
+        { iconClass: 'icon-users', text: 'David' },
+        { iconClass: 'icon-plus-circle', text: 'Invite Member' },
     ];
 
     const appActionsData = [
-        { iconClass: 'settings', text: 'Settings' },
-        { iconClass: 'help-circle', text: 'Help & Support' },
-        { iconClass: 'log-out', text: 'Logout' },
+        { iconClass: 'icon-settings', text: 'Settings' },
+        { iconClass: 'icon-help-circle', text: 'Help & Support' },
+        { iconClass: 'icon-log-out', text: 'Logout' },
     ];
 
-    // Helper function to generate list items from data
+    // --- NEW, ROBUST LOGIC ---
+    // Function to generate an HTML string for a list of items
     function generateListHTML(listData) {
         return listData.map(item => `
             <li>
@@ -29,35 +29,30 @@ export function buildLeftDrawer() {
                     <span class="item-text">${item.text}</span>
                 </a>
             </li>
-        `).join('');
+        `).join(''); // .join('') concatenates all the list items into one string
     }
 
-    // --- BUILD THE ENTIRE DRAWER HTML ---
-    // This now uses <span> icons and includes the required IDs for dynamic data.
+    // --- BUILD THE ENTIRE DRAWER HTML IN ONE GO ---
     drawerContainer.innerHTML = `
         <a href="#" class="drawer-card drawer-user-profile">
             <div class="avatar">
-                <!-- CORRECTED: Using the clean span icon -->
-                <span class="svg-icon user"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             </div>
             <div class="user-info">
-                <!-- CORRECTED: Added IDs for future JavaScript targeting -->
-                <div class="user-name" id="drawer-user-name">[User Name]</div>
-                <div class="user-email" id="drawer-user-email">[user@email.com]</div>
+                <div class="user-name">Alex</div>
+                <div class="user-email">alex@example.com</div>
+                <div class="user-last-login">Last login: Today, 10:45 PM</div>
             </div>
-            <!-- CORRECTED: Using the clean span icon -->
-            <span class="svg-icon chevron-right profile-arrow"></span>
+            <span class="svg-icon icon-arrow-right profile-arrow"></span>
         </a>
 
         <a href="#" class="drawer-card home-switcher">
-            <!-- CORRECTED: Using the clean span icon -->
-            <span class="svg-icon home"></span>
+            <span class="svg-icon icon-home"></span>
             <div class="home-info">
                 <div class="home-label">Current Home</div>
                 <div class="home-name">Alex's House</div>
             </div>
-            <!-- CORRECTED: Using the clean span icon -->
-            <span class="svg-icon chevron-down"></span>
+            <span class="svg-icon icon-chevron-down"></span>
         </a>
 
         <hr class="gradient-divider">
@@ -70,7 +65,6 @@ export function buildLeftDrawer() {
         <div class="app-actions">
             <hr class="gradient-divider">
             <ul class="management-group">
-                <h4 class="list-title">App</h4>
                 ${generateListHTML(appActionsData)}
             </ul>
         </div>

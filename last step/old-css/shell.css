@@ -1,0 +1,110 @@
+/* /css/shell.css (The Definitive, Corrected Version) */
+
+/* ============================================= */
+/*      1. DESIGN SYSTEM & GLOBAL STYLES         */
+/* ============================================= */
+:root {
+    --app-background: #000000;
+    --card-background: rgba(28, 28, 30, 0.85);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #F5F5F7;
+    --text-secondary: #8A8A8E;
+    --text-tertiary: #636366;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: var(--app-background); font-family: 'Manrope', sans-serif; color: var(--text-primary); overflow: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* ============================================= */
+/*      2. MOBILE-FIRST LAYOUT (Default)         */
+/* ============================================= */
+.app-layout { display: grid; height: 100dvh; grid-template-rows: auto 1fr auto; grid-template-areas: "top-bar" "main-content" "bottom-bar"; }
+.top-bar { grid-area: top-bar; }
+.main-content-container { grid-area: main-content; }
+.bottom-bar { grid-area: bottom-bar; }
+.main-content-container { display: flex; flex-direction: column; gap: 0.75rem; padding: 0.75rem; overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; }
+.main-content-container::-webkit-scrollbar { display: none; }
+.bottom-bar { padding: 0.75rem; padding-top: 0; }
+.right-drawer { display: none; }
+
+/* ============================================= */
+/*      3. CARD & COMPONENT STYLES               */
+/* ============================================= */
+.content-card { background: var(--card-background); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); border-radius: 1.25rem; padding: 1rem 1.25rem; flex-shrink: 0; }
+.top-bar { padding: 0.75rem; display: flex; align-items: center; justify-content: space-between; }
+.top-bar-actions { display: flex; gap: 1rem; }
+
+/* --- THIS SECTION IS THE FIX --- */
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    /* The color property is removed from here */
+}
+.icon-button .svg-icon {
+    background-color: var(--text-secondary); /* Set the icon's color directly */
+    transition: background-color 0.2s ease; /* Animate the color change */
+}
+.icon-button:hover .svg-icon {
+    background-color: var(--text-primary); /* Change the icon's color on hover */
+}
+/* --- END OF FIX --- */
+
+.page-header-card { padding: 1.5rem 1.25rem; }
+.header-greeting { font-size: 2rem; font-weight: 700; line-height: 1.2; }
+.placeholder-title { font-size: 0.8125rem; font-weight: 600; color: var(--text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; }
+.bottom-bar-inner { background: var(--card-background); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); border-radius: 1.25rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-around; }
+.bottom-bar-item { display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: var(--text-secondary); transition: color 0.2s ease; }
+.bottom-bar-item .item-text { font-size: 0.625rem; font-weight: 500; }
+.bottom-bar-item.active, .bottom-bar-item:hover { color: var(--text-primary); }
+.bottom-bar-item .svg-icon { width: 24px; height: 24px; }
+.bottom-bar-item.add-button { color: var(--text-primary); }
+.bottom-bar-item.add-button .svg-icon { width: 40px; height: 40px; }
+
+/* ============================================= */
+/*      4. ICONOGRAPHY                           */
+/* ============================================= */
+.svg-icon { display: inline-block; width: 24px; height: 24px; background-color: currentColor; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; }
+.svg-icon.menu { -webkit-mask-image: url(../assets/icons/menu.svg); mask-image: url(../assets/icons/menu.svg); }
+.svg-icon.bell { -webkit-mask-image: url(../assets/icons/bell.svg); mask-image: url(../assets/icons/bell.svg); }
+.svg-icon.user { -webkit-mask-image: url(../assets/icons/user.svg); mask-image: url(../assets/icons/user.svg); }
+.svg-icon.home { -webkit-mask-image: url(../assets/icons/home.svg); mask-image: url(../assets/icons/home.svg); }
+.svg-icon.layout { -webkit-mask-image: url(../assets/icons/layout.svg); mask-image: url(../assets/icons/layout.svg); }
+.svg-icon.plus-circle { -webkit-mask-image: url(../assets/icons/plus-circle.svg); mask-image: url(../assets/icons/plus-circle.svg); }
+.svg-icon.bar-chart { -webkit-mask-image: url(../assets/icons/bar-chart.svg); mask-image: url(../assets/icons/bar-chart.svg); }
+.svg-icon.search { -webkit-mask-image: url(../assets/icons/search.svg); mask-image: url(../assets/icons/search.svg); }
+.svg-icon.chevron-right { -webkit-mask-image: url(../assets/icons/chevron-right.svg); mask-image: url(../assets/icons/chevron-right.svg); }
+.svg-icon.chevron-down { -webkit-mask-image: url(../assets/icons/chevron-down.svg); mask-image: url(../assets/icons/chevron-down.svg); }
+.svg-icon.users { -webkit-mask-image: url(../assets/icons/users.svg); mask-image: url(../assets/icons/users.svg); }
+.svg-icon.settings { -webkit-mask-image: url(../assets/icons/settings.svg); mask-image: url(../assets/icons/settings.svg); }
+.svg-icon.help-circle { -webkit-mask-image: url(../assets/icons/help-circle.svg); mask-image: url(../assets/icons/help-circle.svg); }
+.svg-icon.log-out { -webkit-mask-image: url(../assets/icons/log-out.svg); mask-image: url(../assets/icons/log-out.svg); }
+
+/* ============================================= */
+/*      5. DRAWER INTERACTIVITY STYLES           */
+/* ============================================= */
+#drawer-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; z-index: 99; }
+.app-layout.left-drawer-open #drawer-overlay { opacity: 1; pointer-events: auto; }
+
+/* ============================================= */
+/*      6. DESKTOP LAYOUT (Media Query)          */
+/* ============================================= */
+@media (min-width: 768px) {
+    .app-layout { padding: 1rem; gap: 1rem; grid-template-rows: 3.5rem 1fr; grid-template-columns: 16rem 1fr 16rem; grid-template-areas: "left-drawer top-bar right-drawer" "left-drawer main-content right-drawer"; }
+    .bottom-bar { display: none; }
+    .left-drawer, .right-drawer { display: flex; flex-direction: column; padding: 1rem; gap: 1rem; background: var(--card-background); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); border-radius: 1.25rem; }
+    #menu-toggle-btn { display: none; }
+    .top-bar { grid-area: top-bar; background: var(--card-background); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); border-radius: 1.25rem; padding: 0 1.25rem; }
+    .left-drawer { grid-area: left-drawer; }
+    .main-content-container { grid-area: main-content; padding: 0; }
+    .right-drawer { grid-area: right-drawer; }
+}
+
+/* ============================================= */
+/*      7. MOBILE DRAWER ANIMATION (Media Query) */
+/* ============================================= */
+@media (max-width: 767px) {
+    #menu-toggle-btn { display: block; }
+    .left-drawer { display: flex; flex-direction: column; position: fixed; top: 0.75rem; left: 0.75rem; bottom: 0.75rem; width: 16rem; z-index: 100; padding: 1rem; gap: 1rem; background: var(--card-background); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--card-border); border-radius: 1.25rem; transform: translateX(-110%); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+    .app-layout.left-drawer-open .left-drawer { transform: translateX(0); }
+}

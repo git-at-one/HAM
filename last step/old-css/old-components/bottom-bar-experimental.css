@@ -1,0 +1,105 @@
+/* /css/components/bottom-bar-experimental.css (The Final, Mobile-Only Version) */
+
+/* This media query ensures these special notch styles ONLY apply on mobile screens. */
+@media (max-width: 767px) {
+
+    /* ============================================= */
+    /*      1. SETUP THE MAIN FOOTER CONTAINER       */
+    /* ============================================= */
+    .bottom-bar {
+        /* --- Control Variables for Easy Scaling --- */
+        --bar-height: 4rem;         /* (64px) The height of the rectangular part of the bar. */
+        --fab-size: 3.5rem;         /* (56px) The diameter of the floating 'add' button. */
+        --fab-overlap: 0.75rem;     /* How much the button sticks out from the top. */
+        --bar-radius: 1.25rem;      /* The corner radius of the bar. */
+        --notch-radius: calc((var(--fab-size) / 2) + var(--fab-overlap)); /* Auto-calculates the curve radius. */
+
+        /* --- Positioning Context --- */
+        position: relative;
+        display: grid;
+        place-items: center; /* This centers both the bar and the button within the footer area. */
+        width: 100%;
+        /* The total height is the bar height plus the part of the button that sticks out. */
+        height: calc(var(--bar-height) + var(--fab-overlap));
+        padding: 0 0.75rem; /* Add side padding to the container */
+    }
+
+    /* ============================================= */
+    /*      2. STYLE THE FLOATING 'ADD' BUTTON       */
+    /* ============================================= */
+    .bottom-bar-add-button {
+        width: var(--fab-size);
+        height: var(--fab-size);
+        border-radius: 50%;
+        background-color: #3A3A3C;
+        color: #FFFFFF;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        text-decoration: none;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .bottom-bar-add-button .svg-icon {
+        width: calc(var(--fab-size) * 0.5);
+        height: calc(var(--fab-size) * 0.5);
+    }
+
+    /* ============================================= */
+    /*      3. STYLE AND CLIP THE MAIN BAR           */
+    /* ============================================= */
+    .bottom-bar-inner {
+        width: 100%;
+        height: var(--bar-height);
+        position: absolute;
+        bottom: 0;
+        background-color: #3A3A3C;
+        border-radius: var(--bar-radius);
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 0 1rem;
+        clip-path: path(
+            'M 0, var(--bar-radius) '
+            'A var(--bar-radius), var(--bar-radius) 0 0 1 var(--bar-radius), 0 '
+            'L calc(50% - var(--notch-radius)), 0 '
+            'A var(--notch-radius), var(--notch-radius) 0 0 0 calc(50% + var(--notch-radius)), 0 '
+            'L calc(100% - var(--bar-radius)), 0 '
+            'A var(--bar-radius), var(--bar-radius) 0 0 1 100%, var(--bar-radius) '
+            'L 100%, 100% '
+            'L 0, 100% '
+            'Z'
+        );
+    }
+
+    /* ============================================= */
+    /*      4. STYLE THE NAVIGATION ITEMS            */
+    /* ============================================= */
+    .bottom-bar-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+        color: var(--text-secondary);
+        transition: color 0.2s ease;
+    }
+
+    .bottom-bar-item .item-text {
+        font-size: 0.625rem;
+        font-weight: 500;
+    }
+
+    .bottom-bar-item.active,
+    .bottom-bar-item:hover {
+        color: var(--text-primary);
+    }
+
+    /* The spacer creates the empty area in the middle of the bar. */
+    .bottom-bar-spacer {
+        width: var(--fab-size);
+        flex-shrink: 0;
+    }
+}

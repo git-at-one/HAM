@@ -7,78 +7,108 @@
     
     <link rel="stylesheet" href="../css/shell.css">
     <link rel="stylesheet" href="../css/components/left-drawer.css">
+    <link rel="stylesheet" href="../css/desktop.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="app-layout">
-<header class="layout-shell top-bar">
-    <!-- Mobile-only Menu Button -->
-    <button type="button" id="menu-toggle-btn" class="icon-button">☰</button>
-    <!-- This container holds all the right-aligned items -->
+        
+        <aside class="left-drawer"></aside>
+        <aside class="right-drawer"></aside>
+        
+        <!-- RESTORED: The drawer overlay is back -->
+        <div id="drawer-overlay"></div>
+
+<!-- In /html/dash.html -->
+
+<header class="top-bar">
+    <!-- Mobile menu button (hidden on desktop) -->
+    <button type="button" id="menu-toggle-btn" class="icon-button">
+        <span class="svg-icon menu"></span>
+    </button>
+
+    <!-- Desktop navigation items -->
+    <div class="top-bar-nav-items">
+        <a href="#" class="top-bar-nav-item active">
+            <span class="svg-icon home"></span>
+            <span>Home</span>
+        </a>
+        <a href="#" class="top-bar-nav-item">
+            <span class="svg-icon layout"></span>
+            <span>Rooms</span>
+        </a>
+        <a href="#" class="top-bar-nav-item">
+            <span class="svg-icon bar-chart"></span>
+            <span>Insights</span>
+        </a>
+        <a href="#" class="top-bar-nav-item">
+            <span class="svg-icon search"></span>
+            <span>Search</span>
+        </a>
+    </div>
+
+    <!-- Right-side action icons -->
     <div class="top-bar-actions">
-        <!-- NEW: Notification Icon (using the span technique) -->
+        <!-- THIS IS THE FIX: The "Add" button is now a standard icon button -->
         <button type="button" class="icon-button">
-            <span class="svg-icon icon-bell"></span>
+            <span class="svg-icon plus-circle"></span>
         </button>
-        <!-- The Profile item -->
-        <div class="desktop-only-item">Profile</div> 
+        <button type="button" class="icon-button">
+            <span class="svg-icon bell"></span>
+        </button>
+        <button type="button" class="icon-button profile-button">
+            <span class="svg-icon user"></span>
+        </button>
     </div>
 </header>
 
-        <aside class="layout-shell left-drawer">
-            <!-- This space is intentionally left blank. JS will build the content here. -->
-        </aside>
-
-        <aside class="layout-shell right-drawer">
-            <h4 class="placeholder-title">CONTEXTUAL INFO</h4>
-        </aside>
-
-        <footer class="layout-shell bottom-bar">
-            <p>Home</p>
-            <p>Rooms</p>
-            <p>Add</p>
-            <p>Insights</p>
-            <p>Search</p>
-        </footer>
 
         <main class="main-content-container">
-            <section class="content-card page-header-card">
-                <div class="placeholder-card header-logo"><p class="placeholder-label">Logo</p></div>
-                <div class="header-text">
-<!-- Inside the .page-header-card -->
-<p class="placeholder-label">Good Evening, <span id="greeting-user">[User]</span></p>
-
-                    <p class="placeholder-label small-text">You are in the Living Room.</p>
-                </div>
-            </section>
-            <section class="content-card active-devices-card">
+            <div class="content-card page-header-card">
+                <h1 class="header-greeting"><span id="greeting-message">Good evening</span>, <span id="greeting-user">[User]</span>!</h1>
+            </div>
+            <div class="content-card active-devices-card">
                 <h4 class="placeholder-title">ACTIVE DEVICES</h4>
-                <div class="scroll-wrapper">
-                    <div class="placeholder-card small"><p class="placeholder-label">Living Room Lamp</p></div>
-                    <div class="placeholder-card small"><p class="placeholder-label">TV Ambilight</p></div>
-                    <div class="placeholder-card small"><p class="placeholder-label">Kitchen LEDs</p></div>
-                </div>
-            </section>
-            <section class="content-card main-grid-card">
-                <h4 class="placeholder-title full-width">ALL DEVICES</h4>
-                <div class="scroll-wrapper">
-                    <div class="placeholder-card"><p class="placeholder-label">Device 1</p></div>
-                    <div class="placeholder-card"><p class="placeholder-label">Device 2</p></div>
-                    <div class="placeholder-card"><p class="placeholder-label">Device 3</p></div>
-                    <div class="placeholder-card"><p class="placeholder-label">Device 4</p></div>
-                    <div class="placeholder-card"><p class="placeholder-label">Device 5</p></div>
-                    <div class="placeholder-card"><p class="placeholder-label">Device 6</p></div>
-                </div>
-            </section>
+            </div>
+            <div class="content-card main-grid-card">
+                <h4 class="placeholder-title">ALL DEVICES</h4>
+            </div>
         </main>
         
-        <div id="drawer-overlay" class="drawer-overlay"></div>
+
+<footer class="bottom-bar">
+    <!-- All items are now simple children of the inner bar -->
+    <div class="bottom-bar-inner">
+        <a href="#" class="bottom-bar-item active">
+            <span class="svg-icon home"></span>
+            <span class="item-text">Home</span>
+        </a>
+        <a href="#" class="bottom-bar-item">
+            <span class="svg-icon layout"></span>
+            <span class="item-text">Rooms</span>
+        </a>
+        <!-- The "Add" button is now just another item in the list -->
+        <a href="#" class="bottom-bar-item add-button">
+            <span class="svg-icon plus-circle"></span>
+        </a>
+        <a href="#" class="bottom-bar-item">
+            <span class="svg-icon bar-chart"></span>
+            <span class="item-text">Insights</span>
+        </a>
+        <a href="#" class="bottom-bar-item">
+            <span class="svg-icon search"></span>
+            <span class="item-text">Search</span>
+        </a>
+    </div>
+</footer>
+
+
 
     </div>
 
     <script src="../js/app.js" type="module" defer></script>
-
+    
 </body>
 </html>
