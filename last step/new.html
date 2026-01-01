@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripple Effect Test</title>
+
+    <!-- Basic Styles for Visibility -->
+    <style>
+        body {
+            background-color: #101010;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
+        .test-button {
+            background-color: #007AFF;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- 
+        THE CSS FIX: 
+        - Go up one level from /html/ to /HAM-root/ (`../`)
+        - Then go down into /css/components/
+    -->
+    <link rel="stylesheet" href="../old-css/old-components/ui-enhance.css">
+
+</head>
+<body>
+
+    <button class="test-button ripple">
+        Click Me
+    </button>
+
+    <script type="module">
+        /*
+            THE JAVASCRIPT FIX:
+            - Go up one level from /html/ to /HAM-root/ (`../`)
+            - Then go down into /js/modules/
+        */
+        import { initRippleEffects } from '../old-js/old-modules/ui-effects.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Initializing ripple effect for test page...");
+            initRippleEffects();
+            console.log("Ripple effect initialized.");
+        });
+    </script>
+
+</body>
+</html>

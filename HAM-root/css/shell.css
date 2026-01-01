@@ -157,9 +157,17 @@ body {
     height: 20px;
 }
 
-.add-button:hover {
+/* .add-button:active {
     transform: scale(1.1);
+} */
+
+/*  .top-bar-nav-item .bottom-bar-item{
+   transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
 }
+
+.top-bar-nav-item:active, #menu-toggle-btn:active, .bottom-bar-item:active{
+   transform: scale(0.9);
+} */
 
 
 /* ============================================= */
@@ -248,4 +256,67 @@ body {
     .app-layout.left-drawer-open .left-drawer {
         transform: translateX(0);
     }
+}
+
+
+
+/* ============================================= */
+/*      1. UNIVERSAL SELECTION & FOCUS CONTROL   */
+/* ============================================= */
+
+/* --- Disable Unwanted Text Selection --- */
+.icon-button,
+.bottom-bar-item,
+.top-bar-nav-item,
+.drawer-card,
+.list-item,
+.add-button-top,
+.bottom-bar-add-button,
+#menu-toggle-btn,
+.content-card {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* --- Remove Mobile Touch Highlight --- */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* --- Remove Default Focus Outlines --- */
+*:focus,
+*:focus-visible {
+    outline: none;
+}
+
+
+/* ============================================= */
+/*      2. TACTILE CLICK & BOUNCE EFFECT         */
+/* ============================================= */
+
+
+.bottom-bar-item,
+.top-bar-nav-item,
+.drawer-card,
+.list-item,
+.add-button-top,
+.bottom-bar-add-button,
+#menu-toggle-btn,
+.page-header-card {
+    transition: transform 0.1s cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+
+.bottom-bar-item:active,
+.top-bar-nav-item:active,
+.drawer-card:active,
+.list-item:active,
+.add-button-top:active,
+.bottom-bar-add-button:active,
+#menu-toggle-btn:active,
+.page-header-card:active {
+    transform: scale(0.95);
+    transition-duration: 0s;
 }

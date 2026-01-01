@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+    <!-- In /html/dash.html -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +19,7 @@
         
         <aside class="left-drawer"></aside>
         <aside class="right-drawer"></aside>
-        
-        <!-- RESTORED: The drawer overlay is back -->
         <div id="drawer-overlay"></div>
-
-<!-- In /html/dash.html -->
 
 <header class="top-bar">
     <!-- Mobile menu button (hidden on desktop) -->
@@ -51,7 +49,6 @@
 
     <!-- Right-side action icons -->
     <div class="top-bar-actions">
-        <!-- THIS IS THE FIX: The "Add" button is now a standard icon button -->
         <button type="button" class="add-button-top">
             <span class="svg-icon plus-circle"></span>
         </button>
@@ -67,7 +64,9 @@
 
         <main class="main-content-container">
             <div class="content-card page-header-card">
-                <h1 class="header-greeting"><span id="greeting-message">Good evening</span>, <span id="greeting-user">[User]</span>!</h1>
+    <h1 id="user-greeting" class="header-greeting">Loading...</h1>
+    
+    <p id="current-time-display" class="header-time-display"></p>
             </div>
             <div class="content-card active-devices-card">
                 <h4 class="placeholder-title">ACTIVE DEVICES</h4>

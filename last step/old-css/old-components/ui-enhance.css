@@ -1,0 +1,101 @@
+/* /css/ui-enhancements.css - Global UI Polish & Feel */
+
+/* ============================================= */
+/*      1. UNIVERSAL SELECTION & FOCUS CONTROL   */
+/* ============================================= */
+
+/* --- Disable Unwanted Text Selection --- */
+/* Apply this to elements that should not be selectable, like buttons and UI chrome. */
+.no-select,
+.icon-button,
+.bottom-bar-item,
+.top-bar-nav-item,
+.drawer-card,
+.list-item,
+.add-button-top,
+.bottom-bar-add-button {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;         /* Standard */
+}
+
+/* --- Remove Mobile Touch Highlight --- */
+/* This removes the grey tap highlight on mobile browsers for a cleaner feel. */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* --- Remove Default Focus Outlines --- */
+/* Removes the default browser outline on any focused element.
+   WARNING: This is bad for accessibility unless you provide your own focus styles.
+   Our :hover styles serve a similar purpose, but for keyboard users, this is not ideal.
+   For this project's aesthetic, we will remove it. */
+*:focus {
+    outline: none;
+}
+/* For Firefox, a slightly different pseudo-class is sometimes needed. */
+*:focus-visible {
+    outline: none;
+}
+
+
+/* ============================================= */
+/*      2. TACTILE CLICK & BOUNCE EFFECT         */
+/* ============================================= */
+
+/* --- Define the base state and transition for all clickable items --- */
+.icon-button,
+.bottom-bar-item,
+.top-bar-nav-item,
+.drawer-card,
+.list-item,
+.submit-button, /* From your login page */
+.add-button-top,
+.bottom-bar-add-button {
+    /* The 'transform' property will be animated over 0.1 seconds. */
+    transition: transform 0.1s cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+/* --- Define the ':active' (pressed) state --- */
+/* When any of these elements are being actively clicked or tapped... */
+.icon-button:active,
+.bottom-bar-item:active,
+.top-bar-nav-item:active,
+.drawer-card:active,
+.list-item:active,
+.submit-button:active,
+.add-button-top:active,
+.bottom-bar-add-button:active {
+    /* ...scale them down slightly to create the "bounce" or "press-in" effect. */
+    transform: scale(0.95);
+    
+    /* We can also reduce the transition time on release to make it feel "snappier". */
+    transition-duration: 0.05s;
+}
+
+/* /css/ui-enhancements.css */
+/* ... (add this to the end of the file) ... */
+
+/* ============================================= */
+/*      3. (OPTIONAL) RIPPLE EFFECT STYLES       */
+/* ============================================= */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

@@ -37,26 +37,24 @@ export function buildLeftDrawer() {
     drawerContainer.innerHTML = `
         <a href="#" class="drawer-card drawer-user-profile">
             <div class="avatar">
-                <!-- CORRECTED: Using the clean span icon -->
                 <span class="svg-icon user"></span>
             </div>
             <div class="user-info">
-                <!-- CORRECTED: Added IDs for future JavaScript targeting -->
+                <!-- Added IDs for future JavaScript targeting -->
                 <div class="user-name" id="drawer-user-name">[User Name]</div>
                 <div class="user-email" id="drawer-user-email">[user@email.com]</div>
             </div>
-            <!-- CORRECTED: Using the clean span icon -->
+            
             <span class="svg-icon chevron-right profile-arrow"></span>
         </a>
 
         <a href="#" class="drawer-card home-switcher">
-            <!-- CORRECTED: Using the clean span icon -->
             <span class="svg-icon home"></span>
             <div class="home-info">
-                <div class="home-label">Current Home</div>
+                <div class="home-label">Current</div>
                 <div class="home-name">Alex's House</div>
             </div>
-            <!-- CORRECTED: Using the clean span icon -->
+            
             <span class="svg-icon chevron-down"></span>
         </a>
 
