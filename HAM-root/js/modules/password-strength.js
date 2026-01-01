@@ -1,12 +1,7 @@
-// /js/modules/password-strength.js
+// /js/modules/password-strength.js (The Final, Corrected Version)
 
 export function initPasswordFeatures() {
     const passwordInput = document.getElementById('password');
-    if (!passwordInput) return;
-
-    const togglePasswordButton = document.getElementById('toggle-password-button');
-    const eyeIcon = document.getElementById('eye-icon');
-    const eyeOffIcon = document.getElementById('eye-off-icon');
     const strengthIndicator = document.getElementById('strength-indicator');
     const requirements = {
         length: document.getElementById('req-length'),
@@ -15,17 +10,13 @@ export function initPasswordFeatures() {
         number: document.getElementById('req-number'),
     };
 
-    // Toggle password visibility
-    if (togglePasswordButton) {
-        togglePasswordButton.addEventListener('click', () => {
-            const isPassword = passwordInput.type === 'password';
-            passwordInput.type = isPassword ? 'text' : 'password';
-            eyeIcon.classList.toggle('hidden', isPassword);
-            eyeOffIcon.classList.toggle('hidden', !isPassword);
-        });
+    // Exit gracefully if the main elements for this module aren't found.
+    if (!passwordInput || !strengthIndicator) {
+        console.warn("Password strength feature disabled: Required elements not found.");
+        return;
     }
 
-    // Check password strength
+    // This module's ONLY job is to check password strength.
     const checks = {
         length: (p) => p.length >= 8,
         uppercase: (p) => /[A-Z]/.test(p),
@@ -33,60 +24,38 @@ export function initPasswordFeatures() {
         number: (p) => /[0-9]/.test(p),
     };
 
-    if (strengthIndicator) {
-        const originalPlaceholder = passwordInput.placeholder;
+    passwordInput.addEventListener('input', () => {
+        const password = passwordInput.value;
+        let metCount = 0;
 
-        passwordInput.addEventListener('input', () => {
-            const password = passwordInput.value;
-            let metCount = 0;
+        if (password.length === 0) {
+            strengthIndicator.classList.remove('visible');
+            Object.values(requirements).forEach(req => {
+                if(req) req.classList.remove('met');
+            });
+            return;
+        }
 
-            if (password.length === 0) {
-                strengthIndicator.classList.remove('visible');
-                Object.values(requirements).forEach(req => {
-                    if(req) req.classList.remove('met');
-                });
-                return;
+        for (const key in checks) {
+            if (requirements[key]) {
+                const isMet = checks[key](password);
+                requirements[key].classList.toggle('met', isMet);
+                if (isMet) metCount++;
             }
+        }
 
-            for (const key in checks) {
-                if (requirements[key]) {
-                    const isMet = checks[key](password);
-                    if (isMet) {
-                        metCount++;
-                        requirements[key].classList.add('met');
-                    } else {
-                        requirements[key].classList.remove('met');
-                    }
-                }
-            }
+        strengthIndicator.classList.add('visible');
+        strengthIndicator.classList.remove('weak', 'good', 'strong');
 
-            strengthIndicator.classList.add('visible');
-            strengthIndicator.classList.remove('weak', 'good', 'strong');
-
-            if (metCount <= 2) {
-                strengthIndicator.textContent = 'Weak';
-                strengthIndicator.classList.add('weak');
-            } else if (metCount === 3) {
-                strengthIndicator.textContent = 'Good';
-                strengthIndicator.classList.add('good');
-            } else {
-                strengthIndicator.textContent = 'Strong';
-                strengthIndicator.classList.add('strong');
-            }
-        });
-
-        passwordInput.addEventListener('blur', () => {
-            const isValid = passwordInput.checkValidity();
-            const isNotEmpty = passwordInput.value.length > 0;
-            if (!isValid && isNotEmpty) {
-                passwordInput.placeholder = "Password does not meet requirements";
-            } else {
-                passwordInput.placeholder = originalPlaceholder;
-            }
-        });
-
-        passwordInput.addEventListener('focus', () => {
-            passwordInput.placeholder = originalPlaceholder;
-        });
-    }
+        if (metCount <= 2) {
+            strengthIndicator.textContent = 'Weak';
+            strengthIndicator.classList.add('weak');
+        } else if (metCount === 3) {
+            strengthIndicator.textContent = 'Good';
+            strengthIndicator.classList.add('good');
+        } else {
+            strengthIndicator.textContent = 'Strong';
+            strengthIndicator.classList.add('strong');
+        }
+    });
 }

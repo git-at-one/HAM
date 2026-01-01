@@ -1,31 +1,54 @@
-// /js/signup.js
+// /js/signup.js (The Final, Corrected Version)
 
 import { initParticleAnimation } from './modules/particle-anim.js';
 import { initPasswordFeatures } from './modules/password-strength.js';
-import { initVisibilityToggle } from './modules/toggle-visibility.js'; // Import the new module
+import { initVisibilityToggle } from './modules/toggle-visibility.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all features for the signup page
-    initParticleAnimation('particle-canvas');
-    initPasswordFeatures();
-    
-    // Use our reusable module for BOTH password fields
-    initVisibilityToggle('toggle-password-button', 'password');
-    initVisibilityToggle('toggle-confirm-password-button', 'confirm-password');
+    console.log("Signup page script started.");
 
-    // Add logic for password confirmation
+    // --- Initialize UI Features ---
+    try {
+        initParticleAnimation('particle-canvas');
+        console.log("SUCCESS: Particle animation initialized.");
+
+        // This is a likely source of a hidden error.
+        // If this function fails, the script might stop.
+        initPasswordFeatures();
+        console.log("SUCCESS: Password features initialized.");
+
+        // Initialize the visibility toggle for the FIRST password field
+        initVisibilityToggle('toggle-password-button', 'password');
+        console.log("SUCCESS: Toggle initialized for 'password'.");
+
+        // Initialize the visibility toggle for the SECOND password field
+        initVisibilityToggle('toggle-confirm-password-button', 'confirm-password');
+        console.log("SUCCESS: Toggle initialized for 'confirm-password'.");
+
+    } catch (error) {
+        console.error("An error occurred during UI initialization:", error);
+    }
+
+    // --- Initialize Form Validation Logic ---
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirm-password');
     const errorMessage = document.getElementById('password-match-error');
-    const signupForm = document.querySelector('.login-form');
+    
+    // THIS IS THE FIX: Use the correct ID to select the form.
+    const signupForm = document.getElementById('signup-form');
+
+    if (!signupForm) {
+        console.error("CRITICAL: Could not find form with ID 'signup-form'.");
+        return; // Stop if the form doesn't exist.
+    }
 
     function validatePasswordConfirmation() {
         if (passwordInput.value !== confirmPasswordInput.value) {
             errorMessage.textContent = "Passwords do not match.";
-            confirmPasswordInput.setCustomValidity("Invalid"); // Mark field as invalid for the form
+            confirmPasswordInput.setCustomValidity("Invalid");
         } else {
             errorMessage.textContent = "";
-            confirmPasswordInput.setCustomValidity(""); // Mark field as valid
+            confirmPasswordInput.setCustomValidity("");
         }
     }
 
@@ -34,18 +57,17 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmPasswordInput.addEventListener('input', validatePasswordConfirmation);
     }
 
-    if(signupForm) {
-        signupForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent submission
-            validatePasswordConfirmation(); // Final check on submit
+    signupForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        validatePasswordConfirmation();
 
-            // checkValidity() will now be false if passwords don't match
-            if (signupForm.checkValidity()) {
-                console.log('Signup form is valid and ready to be submitted!');
-                // Add logic here to send data to a server
-            } else {
-                console.log('Signup form is invalid.');
-            }
-        });
-    }
+        if (signupForm.checkValidity()) {
+            console.log('Form is valid! (Submission logic would go here)');
+            alert('Form is valid!');
+        } else {
+            console.log('Form is invalid. Please check fields.');
+        }
+    });
+
+    console.log("Signup page script finished successfully.");
 });
