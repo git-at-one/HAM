@@ -105,18 +105,25 @@
         padding: 1.5rem; /* Give the main content area some internal padding */
     }
     
-/* Style for the special desktop 'Add' button */
+
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .add-button-top {
-    display: grid;
-    /* This overrides 'display: none' and makes it visible */
-    background-color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+ background-color: var(--text-primary);
     color: var(--app-background);
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    place-items: center;
     transition: transform 0.2s ease;
 }
 
