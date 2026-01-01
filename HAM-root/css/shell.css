@@ -157,6 +157,10 @@ body {
     height: 20px;
 }
 
+.add-button:hover {
+    transform: scale(1.1);
+}
+
 
 /* ============================================= */
 /*      5. ICONOGRAPHY (SVG MASK SYSTEM)         */
@@ -218,6 +222,10 @@ body {
     #menu-toggle-btn {
         display: block;
     }
+    .add-button-top{
+        display: none;
+    }
+    
     .left-drawer {
         display: flex;
         flex-direction: column;
