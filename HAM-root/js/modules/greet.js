@@ -28,11 +28,11 @@ async function getInternetTime() {
  */
 function getGreeting(hour) {
     if (hour < 12) {
-        return "Good morning";
+        return "Good Morning";
     } else if (hour < 18) {
-        return "Good afternoon";
+        return "Good Afternoon";
     } else {
-        return "Good evening";
+        return "Good Evening";
     }
 }
 
