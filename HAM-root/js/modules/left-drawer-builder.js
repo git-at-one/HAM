@@ -36,7 +36,7 @@ export function buildLeftDrawer() {
     // This now uses <span> icons and includes the required IDs for dynamic data.
     drawerContainer.innerHTML = `
         <a href="#" class="drawer-card drawer-user-profile">
-            <div class="avatar">
+            <div class="avatar-icon">
                 <span class="svg-icon user"></span>
             </div>
             <div class="user-info">

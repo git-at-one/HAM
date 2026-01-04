@@ -36,7 +36,7 @@
 }
 
 /* --- User Profile Card --- */
-.drawer-user-profile .avatar {
+.drawer-user-profile .avatar-icon {
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -45,7 +45,7 @@
     place-items: center;
     flex-shrink: 0;
 }
-.drawer-user-profile .avatar .svg-icon {
+.drawer-user-profile .avatar-icon .svg-icon {
     width: 24px;
     height: 24px;
     background-color: #FFFFFF;

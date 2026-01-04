@@ -1,23 +1,25 @@
-// /js/modules/greet.js (Now fetches time from the internet)
+// /js/modules/greet.js (Fetches Internet Time & Keeps it Live)
+
+let timeIntervalId = null; // Holds the reference to our interval timer.
 
 /**
  * Fetches the current time from the WorldTimeAPI.
- * @returns {Promise<Date|null>} A promise that resolves with a Date object or null if the fetch fails.
+ * @returns {Promise<Date>} A promise that resolves with a Date object.
  */
 async function getInternetTime() {
     try {
-        // This API returns a JSON object with the current UTC datetime
         const response = await fetch('https://worldtimeapi.org/api/ip');
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const data = await response.json();
-        // The 'datetime' property is a full ISO 8601 string, which the Date constructor can parse
         return new Date(data.datetime);
     } catch (error) {
-        console.error("Failed to fetch internet time:", error);
-        // Fallback to system time if the API fails
-        return new Date();
+        console.warn(
+            "Could not fetch internet time. Falling back to system time.",
+            error
+        );
+        return new Date(); // Fallback to local system time on failure.
     }
 }
 
@@ -27,22 +29,17 @@ async function getInternetTime() {
  * @returns {string} The greeting string.
  */
 function getGreeting(hour) {
-    if (hour < 12) {
-        return "Good Morning";
-    } else if (hour < 18) {
-        return "Good Afternoon";
-    } else {
-        return "Good Evening";
-    }
+    if (hour < 12) return "Good Morning";
+    if (hour < 18) return "Good Afternoon";
+    return "Good Evening";
 }
 
 /**
- * Formats the time into a user-friendly string like "10:30 PM".
+ * Formats a Date object into a user-friendly time string like "10:30 PM".
  * @param {Date} dateObject - The date to format.
  * @returns {string} The formatted time string.
  */
 function formatTime(dateObject) {
-    // Use Intl.DateTimeFormat for robust, locale-aware time formatting.
     return new Intl.DateTimeFormat(navigator.language, {
         hour: 'numeric',
         minute: 'numeric',
@@ -51,12 +48,12 @@ function formatTime(dateObject) {
 }
 
 /**
- * Main function to fetch time, update the greeting, and display the current time.
+ * Main function to initialize the greeting and start the live-updating clock.
  * @param {string} greetingElementId - The ID of the greeting element.
  * @param {string} timeElementId - The ID of the time display element.
  * @param {string} userName - The name of the user.
  */
-export async function setDynamicGreetingAndTime(greetingElementId, timeElementId, userName = "User") {
+export async function initDynamicGreetingAndClock(greetingElementId, timeElementId, userName = "User") {
     const greetingElement = document.getElementById(greetingElementId);
     const timeElement = document.getElementById(timeElementId);
 
@@ -65,21 +62,35 @@ export async function setDynamicGreetingAndTime(greetingElementId, timeElementId
         return;
     }
 
-    // Show loading state
+    // --- 1. FETCH INITIAL ACCURATE TIME ---
     greetingElement.textContent = "Loading...";
     timeElement.textContent = "";
+    
+    // Get our starting time. This is the only network request we make.
+    let accurateTime = await getInternetTime();
 
-    const now = await getInternetTime();
+    // --- 2. SET THE GREETING (RUNS ONCE) ---
+    const greetingText = getGreeting(accurateTime.getHours());
+    greetingElement.textContent = `${greetingText}, ${userName}!`;
 
-    if (now) {
-        const greetingText = getGreeting(now.getHours());
-        const timeText = formatTime(now);
-
-        greetingElement.textContent = `${greetingText}, ${userName}!`;
-        timeElement.textContent = `The current time is ${timeText}`;
-    } else {
-        // Handle the case where the API and fallback both failed
-        greetingElement.textContent = `Hello, ${userName}!`;
-        timeElement.textContent = "Could not load current time.";
+    // --- 3. START THE LIVE-UPDATING "SMART" CLOCK ---
+    // Clear any previous interval to prevent duplicates.
+    if (timeIntervalId) {
+        clearInterval(timeIntervalId);
     }
+
+    // This function will be called every second.
+    const tick = () => {
+        // Update the time display with the current value of our 'accurateTime' object.
+        timeElement.textContent = `The current time is ${formatTime(accurateTime)}`;
+        
+        // Increment our time object by 1000 milliseconds (1 second).
+        accurateTime.setSeconds(accurateTime.getSeconds() + 1);
+    };
+
+    // Run the 'tick' function immediately to show the time right away.
+    tick();
+    
+    // Set up the interval to run the 'tick' function every second from now on.
+    timeIntervalId = setInterval(tick, 1000);
 }

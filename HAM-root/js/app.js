@@ -4,7 +4,7 @@
 // Imports the function to dynamically build the left-side navigation drawer.
 import { buildLeftDrawer } from './modules/left-drawer-builder.js';
 // Imports the function to fetch internet time and update the greeting and time display.
-import { setDynamicGreetingAndTime } from './modules/greet.js';
+import { initDynamicGreetingAndClock } from './modules/greet.js';
 // Imports the function to build the "Active" and "All" device grids.
 import { buildDeviceGrids } from './modules/device-grid-builder.js';
 
@@ -50,9 +50,9 @@ async function dashboardInit() {
 
     // 1. These functions are synchronous or run in the background.
     // They can be called right away.
+    initDynamicGreetingAndClock('user-greeting', 'current-time-display', 'Alex');
     buildLeftDrawer();
     initDrawerInteractivity();
-    setDynamicGreetingAndTime('user-greeting', 'current-time-display', 'Alex');
 
     // 2. This function is asynchronous. It fetches data and builds the main UI.
     // We 'await' its completion to ensure the main content is ready.
